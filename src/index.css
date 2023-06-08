@@ -5,15 +5,27 @@
 
 :root{ 
   --color-white: #fff;
-  --color-white-variant: rgb(250,250,250);
+  --color-bg: #F1F5F6;
+  --color-text: #4A4A4A;
+  --color-text-variant: #7E7E7E;
+  --color-shadow: #A1A4A5;
   --color-primary: rgb(112,155,108);
-  --color-primary-variant: rgb(67,93,65);
-  --color-bg: rgb(24,24,27);
-  --color-bg-variant: #0B0B13;
-  --color-light: rgba(255, 255, 255, 0.6);
 }
 
 ::-webkit-scrollbar{
   display: none;
 }
 
+body{
+  font-family: 'Inconsolata', monospace;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  position: relative;
+
+}
+
+input, 
+a, 
+button:focus {
+  outline:none;
+}
