@@ -30,7 +30,7 @@ export default Sidebar
 const Container = styled.div`
     .sidebar{
         margin: 1rem;
-        width: 20rem;
+        width: 15rem;
         padding: 2rem;
         background-color:var(--color-white)
     }

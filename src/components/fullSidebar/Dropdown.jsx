@@ -20,7 +20,7 @@ const Dropdown = () => {
       let handler = (e)=>{
         if(!menuRef.current.contains(e.target)){
           setExpand(false);
-          console.log(menuRef.current);
+        //   console.log(menuRef.current);
         }      
       };
   
@@ -43,7 +43,7 @@ const Dropdown = () => {
                 
                     <div onClick={()=>{setExpand(!expand)}} className={'dropdown-menu ' + (expand ? 'active' : 'inactive')}>
                         {colors.map((color) => {
-                            return <a href='#' onClick={() => (changeValue(color))}> <Square style={{fill: color}}/></a>
+                            return <a href='#'onClick={() => (changeValue(color))}> <Square style={{fill: color}}/></a>
                         })}
                     </div>
             </div>
