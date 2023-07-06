@@ -29,15 +29,18 @@ export default Sidebar
 
 const Container = styled.div`
     .sidebar{
-        margin: 1rem;
-        width: 15rem;
-        padding: 2rem;
-        background-color:var(--color-white)
+        ${'' /* margin: 1rem; */}
+        ${'' /* width: 12rem; */}
+        padding: 1rem 2rem;
+        ${'' /* height: 100%; */}
+        background-color:var(--color-white);
+        border-right: 1.3px solid var(--color-shadow);
     }
     .title{
         margin-bottom: 1rem;
     }
     input[type=text]{
+      ${'' /* width: 100%; */}
         padding-left: 1rem;
         border: none;
         height: 2rem;

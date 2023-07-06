@@ -10,15 +10,24 @@
   --color-text-variant: #7E7E7E;
   --color-shadow: #A1A4A5;
   --color-primary: rgb(112,155,108);
+
+  --container-width-lg: 75%;
+  --container-width-md: 95%;
+  --container-width-sm: 98%;
 }
 
 ::-webkit-scrollbar{
   display: none;
 }
 
+.container {
+  width: var(--container-width-lg);
+  margin: 0 auto; 
+}
+
 body{
   font-family: 'Inconsolata', monospace;
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
   color: var(--color-text);
   position: relative;
 

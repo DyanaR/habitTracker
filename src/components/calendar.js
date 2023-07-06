@@ -13,7 +13,7 @@ export const generateDate = (
 	
 	const arrayOfDate = [];
 
-	//prefix dates 
+	// prefix dates 
 	for(let i=0; i < firstDateOfMonth.day(); i++){
 		arrayOfDate.push({
 			currentMonth: false,
@@ -51,18 +51,19 @@ export const generateMonth = (
 	year = dayjs().year()
 	//year number ex. 2023
 ) => {
-	const firstMonthOfYear= dayjs().year(year).month(month).startOf("year");
-	const lastMonthOfYear= dayjs().year(year).month(month).endOf("year");
+
+	const firstMonthOfYear = dayjs().year(year).month(month).startOf("year");
+	const lastMonthOfYear = dayjs().year(year).month(month).endOf("year");
 
 	const arrayOfMonth = [];
 
-	for(let i = firstMonthOfYear.month(); i <= lastMonthOfYear; i++){
-		arrayOfMonth.push(firstMonthOfYear.month(i))
+	for(let i = firstMonthOfYear.month(); i <= lastMonthOfYear.month(); i++){
+		arrayOfMonth.push({month: firstMonthOfYear.month(i)});
 	}
+
 	return arrayOfMonth;
 
-}
-
+};
 
 
 export const months = [
