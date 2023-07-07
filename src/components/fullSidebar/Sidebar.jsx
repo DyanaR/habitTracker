@@ -13,9 +13,9 @@ const Sidebar = () => {
         <Dropdown />
         <Dropdown />
         <Dropdown />
-
+        
         <div className='stats__container'>
-            <h1>13</h1>
+            <h1>13</h1> 
             <h6>Happy</h6>
 
         </div>
@@ -24,7 +24,7 @@ const Sidebar = () => {
     </Container>
   )
 }
-
+//how will the colors count come to this component? we might need props 
 export default Sidebar
 
 const Container = styled.div`

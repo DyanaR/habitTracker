@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/fullSidebar/Sidebar";
 import Month from "./components/Month";
 import styled from "styled-components";
-import CalendarHeader from "./components/CalendarHeader";
 
 function App() {
   return (

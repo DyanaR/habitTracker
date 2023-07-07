@@ -4,7 +4,8 @@ import cn from "./cn";
 import { generateDate, generateMonth, months } from "./calendar.js";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import styled from "styled-components";
-import CalendarHeader from "./CalendarHeader";
+
+const colours = ["","red", "blue", "orange", "yellow", "pink", "green"]
 
 
 export default function Calendar() {
@@ -16,14 +17,24 @@ export default function Calendar() {
   const [today, setToday] = useState(currentDate);
   const [state, setState] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [selectedColourIndex, setColourIndex] = useState(0);
+  const [selectDate, setSelectDate] = useState(currentDate);
 
+  const nextColour = () => {
+    const newColourIndex = selectedColourIndex + 1;
+    if (colours[newColourIndex]) 
+        setColourIndex(newColourIndex);
+    else
+        setColourIndex(0);
+}
+  
   const yearTitle = today.year();
   const monthTitle = months[today.month()];
+ 
 
 	return (
  
     <Container>
-    
     
       <div className="heading">
         <div className="toggles">
@@ -63,16 +74,23 @@ export default function Calendar() {
         </div>
         <div className="month">
           {generateDate(today.month(), today.year()).map(({date, currentMonth, today}, index ) => {
-
-            return <div className={cn(currentMonth? "current-dates" : "extra-dates", today? "today" : "" )} key={index}> 
+            return <div 
+                  onClick={() => {nextColour(); setSelectDate(date)}} 
+                  style={selectDate.toDate().toDateString() === date.toDate().toDateString()? {backgroundColor: colours[selectedColourIndex]} : {}} 
+                  className={cn(
+                      currentMonth? "current-dates" : "extra-dates", 
+                      today? "today" : "",
+                       )} 
+                  key={index}> 
               {date.date()}
             </div>
+            
           })}
           </div>
-      </div> :
+      </div> 
+      
+      :
                
-
-
       <div className="year">
        {generateMonth().map(({month}, index) =>  {
         return <div key={index} className="month">
@@ -87,7 +105,7 @@ export default function Calendar() {
         <div className="month">
           {generateDate(month.month(), today.year()).map(({date, currentMonth, today}, index ) => {
 
-            return <div className={cn(currentMonth? "year-current-dates" : "year-extra-dates", today? "today" : "" )} key={index}> 
+            return <div  className={cn(currentMonth? "year-current-dates" : "year-extra-dates", today? "today" : "" )} key={index}> 
               {date.date()}
             </div>
           })}
@@ -196,7 +214,7 @@ const Container = styled.div`
   border: 1px solid black;
   padding: .2rem;
 }
-.current-dates:hover{
+.current-dates:hover, .year-current-dates:hover{
   background-color:  rgb(204,204,204);
 }
 .extra-dates{
@@ -211,7 +229,7 @@ const Container = styled.div`
   padding: .2rem;
   color: var(--color-text-variant);
 }
-.extra-dates:hover{
+.extra-dates:hover, .year-extra-dates:hover{
   ${'' /* transition: all; */}
   background-color: rgb(204,204,204);
 }

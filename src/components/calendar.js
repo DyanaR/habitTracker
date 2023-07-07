@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 
+
+//month view
 export const generateDate = (
 	month = dayjs().month(),
 	//month number ex. 6
@@ -45,6 +47,7 @@ export const generateDate = (
 	return arrayOfDate;
 };
 
+//year view
 export const generateMonth = (
 	month = dayjs().month(),
 	//month number ex. 6
@@ -62,7 +65,6 @@ export const generateMonth = (
 	}
 
 	return arrayOfMonth;
-
 };
 
 

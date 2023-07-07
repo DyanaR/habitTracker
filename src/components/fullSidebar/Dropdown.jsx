@@ -81,7 +81,7 @@ const Container = styled.div`
         display: flex;
         gap: 1rem;
         padding: .5rem;
-        background-color: var(--color-primary);
+        background-color: var(--color-white);
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
