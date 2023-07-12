@@ -19,6 +19,8 @@ export default function Calendar() {
   const [expand, setExpand] = useState(false);
   const [selectedColourIndex, setColourIndex] = useState(0);
   const [selectDate, setSelectDate] = useState(currentDate);
+  const [value, setValue] = useState("grey");
+
 
   const nextColour = () => {
     const newColourIndex = selectedColourIndex + 1;
@@ -27,6 +29,9 @@ export default function Calendar() {
     else
         setColourIndex(0);
 }
+
+const changeValue = (colors) => {setValue(colors)};
+
   
   const yearTitle = today.year();
   const monthTitle = months[today.month()];
@@ -72,7 +77,7 @@ export default function Calendar() {
               </div>
           })}
         </div>
-        <div className="month">
+      <div className="month">
           {generateDate(today.month(), today.year()).map(({date, currentMonth, today}, index ) => {
             return <div 
                   onClick={() => {nextColour(); setSelectDate(date)}} 
@@ -80,13 +85,13 @@ export default function Calendar() {
                   className={cn(
                       currentMonth? "current-dates" : "extra-dates", 
                       today? "today" : "",
-                       )} 
+                      )} 
                   key={index}> 
               {date.date()}
             </div>
             
           })}
-          </div>
+      </div> 
       </div> 
       
       :
@@ -103,6 +108,7 @@ export default function Calendar() {
           })}
         </div>
         <div className="month">
+        {/* can parameters in generateDate just be deleted? nothing in there? */}
           {generateDate(month.month(), today.year()).map(({date, currentMonth, today}, index ) => {
 
             return <div  className={cn(currentMonth? "year-current-dates" : "year-extra-dates", today? "today" : "" )} key={index}> 

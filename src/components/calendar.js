@@ -4,9 +4,9 @@ import dayjs from "dayjs";
 //month view
 export const generateDate = (
 	month = dayjs().month(),
-	//month number ex. 6
+	//cuurent month number ex. 6
 	year = dayjs().year()
-	//year number ex. 2023
+	//current year number ex. 2023
 ) => {
 
 	const firstDateOfMonth = dayjs().year(year).month(month).startOf("month");
