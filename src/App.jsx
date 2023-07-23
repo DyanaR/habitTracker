@@ -1,22 +1,51 @@
-import React from "react";
+import { useState, Fragment, useContext, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/fullSidebar/Sidebar";
 import Month from "./components/Month";
 import styled from "styled-components";
+import CalendarHeader from "./components/CalendarHeader";
+import Year from "./components/Year";
+import GlobalContext from "./context/GlobalContext";
+import dayjs from "dayjs";
+import { getMonth, getYear } from "./utils/calendar.js";
 
 function App() {
+  const {
+    monthIndex,
+    view,
+    currentMonth,
+    currentYear,
+    setCurrentYear,
+    setCurrentMonth,
+    yearIndex,
+  } = useContext(GlobalContext);
+
+  useEffect(() => {
+    setCurrentMonth(getMonth(monthIndex));
+  }, [monthIndex]);
+
+  useEffect(() => {
+    setCurrentYear(getYear(yearIndex));
+  }, [yearIndex]);
+
   return (
     <Container>
-      <Navbar />
-      <div className="cal">
-      <div className="sidebar">
-        <Sidebar />
-      </div>
-      <div className="month">
-        <Month />
-      </div>
-      </div>
-     
+      <Fragment>
+        <Navbar />
+        <CalendarHeader />
+        <div className="cal">
+          <div className="sidebar">
+            <Sidebar />
+          </div>
+          <div className="month">
+            {view ? (
+              <Month month={currentMonth} />
+            ) : (
+              <Year monthCount={currentYear} />
+            )}
+          </div>
+        </div>
+      </Fragment>
     </Container>
   );
 }
@@ -24,13 +53,11 @@ function App() {
 export default App;
 
 const Container = styled.div`
-.cal{
+  .cal {
   }
-  .month{
+  .month {
   }
-  .sidebar{
+  .sidebar {
     float: left;
   }
-
-    
 `;
