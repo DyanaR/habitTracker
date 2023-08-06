@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { GrFormNext, GrFormPrevious} from "react-icons/gr";
+import {MdArrowDropDown} from "react-icons/md"
 import GlobalContext from "../context/GlobalContext";
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 
 const CalendarHeader = () => {
   const {
@@ -54,13 +56,14 @@ const CalendarHeader = () => {
         </div>
 
         <div class="dropdown">
-          <button
+          <button className="dropdown-btn"
             type="button"
             onClick={() => {
               setExpand(!expand);
             }}
           >
             {view ? "Month" : "Year"}
+            <MdArrowDropDown style={{fontSize: '1.5rem'}}/>
           </button>
           <ul
             onClick={() => {
@@ -114,6 +117,10 @@ const Container = styled.div`
     align-items: center;
     font-size: 1.2rem;
     gap: 1rem;
+  }
+  .dropdown-btn{
+    display: flex;
+    align-items: center; 
   }
   .dropdown-menu {
     position: absolute;

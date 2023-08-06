@@ -2,13 +2,13 @@ import dayjs from "dayjs";
 
 export const colours = [
   "",
-  "red",
-  "blue",
-  "purple",
-  "orange",
-  "yellow",
-  "pink",
-  "green",
+  "#D9454A",
+  "#A0C2DD",
+  "#CFC1D7",
+  "#ECC7A1",
+  "#F1E9BB",
+  "#EEA3A1",
+  "#738A6E",
 ];
 
 export function getMonth(month = dayjs().month(), year = dayjs().year()) {

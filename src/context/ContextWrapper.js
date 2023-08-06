@@ -4,15 +4,15 @@ import dayjs from "dayjs";
 import { getMonth, getYear } from "../utils/calendar";
 
 export default function ContextWrapper(props) {
-  const [expand, setExpand] = useState(false);
-  const [today, setToday] = useState(dayjs());
-  const [view, setView] = useState(false);
-  const [selectedColourIndex, setColourIndex] = useState(0);
-  const [selectDate, setSelectDate] = useState(dayjs());
-  const [monthIndex, setMonthIndex] = useState(dayjs().month());
-  const [yearIndex, setYearIndex] = useState(dayjs().year());
-  const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const [currentYear, setCurrentYear] = useState(getYear());
+  const [expand, setExpand] = useState(false); //used
+  const [today, setToday] = useState(dayjs()); //not used
+  const [view, setView] = useState(false); //used
+  const [selectedColourIndex, setColourIndex] = useState(0); //not used
+  const [selectDate, setSelectDate] = useState(dayjs()); //not used
+  const [monthIndex, setMonthIndex] = useState(dayjs().month()); //used
+  const [yearIndex, setYearIndex] = useState(dayjs().year()); //used
+  const [currentMonth, setCurrentMonth] = useState(getMonth()); //used
+  const [currentYear, setCurrentYear] = useState(getYear()); //used
 
   return (
     <GlobalContext.Provider

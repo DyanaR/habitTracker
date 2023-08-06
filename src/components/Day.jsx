@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import React, { useContext, useState, useEffect } from "react";
 import GlobalContext from "../context/GlobalContext";
 import styled from "styled-components";
+import { colours } from "../utils/calendar";
 
 
 export default function Day({ day, rowIdx }) {
@@ -20,6 +21,15 @@ export default function Day({ day, rowIdx }) {
 //     );
 //     setDayEvents(events);
 //   }, [filteredEvents, day]);
+const [selectedColourIndex, setColourIndex] = useState(0);
+
+const nextColour = () => {
+  const newColourIndex = selectedColourIndex + 1;
+  if (colours[newColourIndex]) 
+      setColourIndex(newColourIndex);
+  else
+      setColourIndex(0);
+}
 
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
@@ -28,7 +38,9 @@ export default function Day({ day, rowIdx }) {
   }
   return (
     <Container>
-    <div className="day-container border border-gray-200 flex flex-col">
+    <div onClick={() => {nextColour()}}
+            style={{backgroundColor: colours[selectedColourIndex]}} 
+    className="day-container border border-gray-200 flex flex-col">
       <header className="flex flex-col items-center">
         {rowIdx === 0 && (
           <p className="weekday text-sm mt-1">
@@ -41,6 +53,7 @@ export default function Day({ day, rowIdx }) {
           {day.format("DD")}
         </p>
       </header>
+
       {/* <div
         className="flex-1 cursor-pointer"
         onClick={() => {

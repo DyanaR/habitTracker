@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
+import Stats from "../Stats";
 
 const Sidebar = () => {
   return (
