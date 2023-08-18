@@ -1,46 +1,67 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ReactComponent as Square } from "../../assets/square.svg";
 import { colours } from "../../utils/calendar.js";
+import { BsTrash, BsCheck } from "react-icons/bs";
+import GlobalContext from "../../context/GlobalContext";
 
 const Dropdown = () => {
   const [expand, setExpand] = useState(false);
 
-  const [value, setValue] = useState("grey");
+  const [colorValue, setColorValue] = useState("lightGrey");
+  const [selectColor, setSelectedColor] = useState("lightGrey");
+
 
   const changeValue = (colours) => {
-    setValue(colours);
+    setColorValue(colours);
   };
 
-  let menuRef = useRef();
+  const {
+    // selectColor,
+    // setSelectedColor,
+    colorLabel,
+    setColorLabel,
+    title,
+    setTitle,
+  } = useContext(GlobalContext);
 
-  useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setExpand(false);
-      }
-    };
+  // let menuRef = useRef();
 
-    document.addEventListener("mousedown", handler);
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (!menuRef.current.contains(e.target)) {
+  //       setExpand(false);
+  //     }
+  //   };
 
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
+  //   document.addEventListener("mousedown", handler);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // });
+
+  const hand = (e) => {};
 
   return (
     <Container>
       <div className="menu">
-        <div className="dropdown" ref={menuRef}>
+        <div
+          className="dropdown"
+          // ref={menuRef}
+        >
           <button
             type="button"
             onClick={() => {
               setExpand(!expand);
             }}
-          >
-            {" "}
-            <Square style={{ fill: value }} />{" "}
-          </button>
+            style={{
+              backgroundColor: colorValue,
+              height: "20px",
+              width: "20px",
+              borderRadius: "2px",
+            }}
+          ></button>
 
           <div
             onClick={() => {
@@ -48,21 +69,44 @@ const Dropdown = () => {
             }}
             className={"dropdown-menu " + (expand ? "active" : "inactive")}
           >
-            {colours.map((color) => {
-              return (
-                <a href="#" onClick={() => changeValue(color)}>
-                  {" "}
-                  <Square style={{ fill: color }} />
-                </a>
-              );
-            })}
+          <div className="colors">
+            {colours.map((color, i) => (
+              <span
+                key={i}
+                onClick={() => {
+                  changeValue(color);
+                  setSelectedColor(color);
+                }}
+                style={{
+                  backgroundColor: color,
+                  height: "20px",
+                  width: "20px",
+                  borderRadius: "2px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                }}
+              >
+                {/* value={color} */}
+                {selectColor === color && <BsCheck />}
+              </span>
+            ))}
+            </div>
           </div>
         </div>
-
-        <div className="label">
-          <input type="text" placeholder="habit title" />
-        </div>
-      </div>
+        {/* <div className="label">
+        
+          <input 
+            type="text" 
+            placeholder="Color Label"
+            name="color-label"
+            value={title}
+          onChange={(e) => setTitle(e.target.value)}
+             />
+        </div> */}
+        {/* <BsTrash onClick={() => {setColorLabel(colorLabel-1)}} /> */}
+     </div>
     </Container>
   );
 };
@@ -95,6 +139,8 @@ const Container = styled.div`
   }
   .dropdown-menu.active {
     visibility: visible;
+    display: grid;
+    grid-template-columns: repeat(5, 0fr);
   }
   .dropdown-menu.inactive {
     visibility: hidden;

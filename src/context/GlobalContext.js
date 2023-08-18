@@ -21,6 +21,17 @@ const GlobalContext = React.createContext({
   setColourIndex: () => {},
   selectDate: dayjs(),
   setSelectDate: () => {},
+  colorLabel: 1,
+  setColorLabel: () => {},
+  title: "",
+  setTitle: () => {},
+  labels: [],
+  setLabels: () => {},
+  selectColor: "",
+  setSelectColor: () => {},
+  value: "",
+  setValue: () => {},
+  dispatchCalEvent: ({type, payload}) => {},
 });
 
 export default GlobalContext;
