@@ -1,50 +1,92 @@
 import dayjs from "dayjs";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import GlobalContext from "../context/GlobalContext";
 import styled from "styled-components";
-import { colours } from "../utils/calendar";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Day({ day, rowIdx }) {
-  // const [dayEvents, setDayEvents] = useState([]);
-  const { setDaySelected, counter, setCounter } = useContext(GlobalContext);
+  const { statObject, setStatObject, colorObject } = useContext(GlobalContext);
 
-  const [selectedColourIndex, setColourIndex] = useState(0);
-
-  const nextColour = () => {
-    const newColourIndex = selectedColourIndex + 1;
-    if (colours[newColourIndex]) setColourIndex(newColourIndex);
-    else setColourIndex(0);
-  };
-  // const handleAdd = (backgroundColor) => {
-  //   if(backgroundColor === "D9454A"){
-  //     setCounter(counter + 1)
-  //   }
-  // }
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") ? "today" : "";
   }
+
+  function extractColorIndex(colorCode) {
+    let totalLength = colorObject.length;
+    const currentIndex = colorObject.findIndex(
+      (iterator) => iterator.colorCode === colorCode
+    );
+    return { currentIndex, totalLength };
+  }
+
+  function handleColorUpdate(originalDate, dateValue) {
+    let colorValue = colorObject[0] || null;
+    console.log(colorValue)
+    const hasColor = statObject[dateValue] || null;
+
+    if (hasColor) {
+      const { currentIndex, totalLength } = extractColorIndex(
+        hasColor.colorCode
+      );
+      let newIndex;
+
+      if (currentIndex === totalLength - 1) {
+        newIndex = 0;
+      } else {
+        newIndex = currentIndex + 1;
+      }
+      colorValue = colorObject[newIndex] || null;
+    }
+
+    if (colorValue) {
+      setStatObject((prevState) => ({
+        ...prevState,
+        [dateValue]: {
+          id: uuidv4(),
+          date: originalDate,
+          colorCode: colorValue.colorCode,
+          colorName: colorValue.colorName,
+        },
+      }));
+    }
+  }
+
+  // function handleColorChanges (colorChange) {
+  //   const modifiedArrays = statObject.map((iterator) => {
+  //     if (colorObject.colorName === iterator.colorName) iterator.colorCode = colorChange;
+  //     return iterator
+  //   })
+  //   setStatObject(modifiedArrays)
+  // }
+
+  function extractColorToDisplay() {
+    const dateValue = day.format("MMMM-DD-YYYY").replaceAll("-", "");
+    const hasColor = statObject[dateValue] || null;
+    if (hasColor) return hasColor?.colorCode;
+    return "";
+  }
+
+  // console.log(statObject, colorObject)
+  
   return (
     <Container>
       <div
         onClick={() => {
-          nextColour();
-          setDaySelected(day);
+          const originalDate = day.format("YYYY-MM-DD");
+          const dateValue = day.format("MMMM-DD-YYYY").replaceAll("-", "");
+          handleColorUpdate(originalDate, dateValue);
+          // handleColorChanges()
         }}
-        // onChange={() => handleAdd() }
-        style={{ backgroundColor: colours[selectedColourIndex] }}
-        className="day-container border border-gray-200 flex flex-col"
+        style={{ backgroundColor: extractColorToDisplay(), cursor: "pointer" }}
+        className="day-container"
       >
-        <header className="flex flex-col items-center">
+        <header>
           {rowIdx === 0 && (
             <p className="weekday text-sm mt-1">
               {day.format("ddd").toUpperCase()}
             </p>
           )}
-          <p
-            className={`date text-sm p-1 my-1 text-center  ${getCurrentDayClass()}`}
-          >
-            {day.format("DD")}
-          </p>
+          <p className={`date ${getCurrentDayClass()}`}>{day.format("DD")}</p>
         </header>
       </div>
     </Container>

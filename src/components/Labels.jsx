@@ -1,161 +1,145 @@
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import GlobalContext from "../context/GlobalContext";
-import Dropdown from "./fullSidebar/Dropdown";
+import { BsTrash } from "react-icons/bs";
+import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsTrash, BsCheck } from "react-icons/bs";
-import { colours } from "../utils/calendar";
+import Dropdown from "./Dropdown";
+import { v4 as uuidv4 } from "uuid";
 
-const Labels = () => {
-  
+export default function Labels() {
   const {
-    labels,
-    setLabels,
-    selectColor,
+    // selectColor,
     daySelected,
-    dispatchCalEvents,
-    setSelectedColor,
+    dispatchCalEvent,
+    // selectedEvent,
+    labels,
+    colorObject,
+    setColorObject,
   } = useContext(GlobalContext);
 
-    //const [serviceList, setlabels] = useState([{ service: "" }]);
   const [title, setTitle] = useState("");
 
-  const handleServiceChange = (e, i) => {
-    const { name, value } = e.target;
-    const list = [...labels];
-    list[i][name] = value;
-    setLabels(list);
-    console.log(e.target.name);
+  const handleLabelChange = (e, color) => {
+    const { value } = e.target;
+    const modifiedArray = colorObject.map((iterator) => {
+      if (color.id === iterator.id) iterator.colorName = value;
+      return iterator;
+    });
+    setColorObject(modifiedArray);
   };
-
- 
-  const handleServiceRemove = (i) => {
-    const list = [...labels];
-    list.splice(i, 1);
-
-    setLabels(list);
-  };
-
-  const handleServiceAdd = () => {
-    setLabels([...labels, { service: "" }]);
-  };
-  
-  //   let handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     alert(JSON.stringify(labels));
+//to save in local storage
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const calendarEvent = {
+  //     title,
+  //     colorTitler: { labels, selectColor },
+  //     label: selectColor,
+  //     day: daySelected.valueOf(),
+  //     // id: selectedEvent ? selectedEvent.id : Date.now(),
+  //   };
+  //   // to delete color labels
+  //   const calendarTitle = {
+  //     colorTitle: labels,
+  //   };
+  //   // if (selectedEvent) {
+  //   //   dispatchCalEvent({ type: "update", payload: calendarEvent });
+  //   // } else {
+  //   //   dispatchCalEvent({ type: "push", payload: calendarEvent });
+  //   // }
   // }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const calendarHabit = {
-        title,
-        colorLabels: labels.singleService.service,
-        color: selectColor,
-        day: daySelected.valueOf(),
-        id: Date.now(),
-    };
-    dispatchCalEvents({ type: "push", payload: calendarHabit });
-  }
+  const handleLabelAdd = () => {
+    setColorObject((prevState) => [
+      ...prevState,
+      {
+        colorCode: "",
+        colorName: "",
+        id: uuidv4(),
+        // count: 0,
+      },
+    ]);
+  };
+
+  const handleLabelRemove = (color) => {
+    const { id } = color;
+    const filteredColorArray = colorObject.filter(
+      (iterator) => iterator.id !== id
+    );
+    setColorObject(filteredColorArray);
+  };
 
   return (
     <Container>
-      <form className="h" autoComplete="off">
-        {daySelected.format("dddd, MMMM DD")}
-        <input
-          className="title"
-          type="text"
-          placeholder="Habit Title"
-          name="title"
-          value={title}
-          required
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <div className="labels">
-          <button onClick={() => handleServiceAdd()}>
-            <AiOutlinePlus />
-            Add Color
-          </button>
-          {labels.map((singleService, index) => (
-            <div key={index} className="label">
-                {/* <Dropdown
-                  name="drowdown"
-                  value={selectColor}
-                  //   onChange={(e) => handleServiceChange(e, index)}
-                /> */}
+      <div className="habits">
+        <button onClick={() => handleLabelAdd()}>
+          <AiOutlinePlus />
+          Add Color
+        </button>
+        <form className="habits-form">
+          <input
+            type="text"
+            name="title"
+            placeholder="Add title"
+            value={title}
+            required
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <p>{daySelected.format("dddd, MMMM DD")}</p>
+          <div>
+            {colorObject.map((color, index) => (
+              <div key={index} className="labels">
                 <div className="colors">
-                  {colours.map((color, i) => (
-                    <span
-                      key={i}
-                      onClick={() => {
-                        setSelectedColor(color);
-                      }}
-                      style={{
-                        backgroundColor: color,
-                        height: "20px",
-                        width: "20px",
-                        borderRadius: "2px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                      }}
-                    >
-                      {selectColor === color && <BsCheck />}
-                    </span>
-                  ))}
+                  <Dropdown color={color} />
                 </div>
                 <input
-                  name="service"
                   type="text"
-                  value={singleService.service}
-                  placeholder="Color Title"
-                  onChange={(e) => handleServiceChange(e, index)}
+                  name="color-title"
+                  placeholder="color title"
+                  value={color.colorName}
                   required
+                  onChange={(e) => handleLabelChange(e, color)}
                 />
-              <div className="remove">
-                {labels.length !== 1 && (
+                <div className="remove">
                   <button
                     type="button"
-                    onClick={() => handleServiceRemove(index)}
+                    onClick={() => handleLabelRemove(color)}
                     className="remove-btn"
                   >
                     <span>
                       <BsTrash />
                     </span>
                   </button>
-                )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <footer>
-        <button type="submit" onChange={handleSubmit}>
-          Save
-        </button>
-        </footer>
-        {console.log(labels)}
-      </form>
+            ))}
+          </div>
+          <footer>
+            {/* <button type="submit" onClick={handleSubmit}>
+              Save
+            </button> */}
+          </footer>
+        </form>
+      </div>
     </Container>
   );
-};
-
-export default Labels;
+}
 
 const Container = styled.div`
-  .label {
-    ${'' /* display: flex; */}
-    gap: 0.5rem;
-  }
-  .input {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .title {
-    margin-bottom: 1rem;
+  .habits-form {
   }
   .colors {
-    display: flex;
+    padding: .5rem  0;
     gap: 0.5rem;
+    padding: 0.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(5, 0fr);
+  }
+  .labels {
+    display: flex;
+    padding: 0.5rem 0;
+  }
+  input {
+    margin: 0.5rem 0;
   }
   button {
     justify-content: center;

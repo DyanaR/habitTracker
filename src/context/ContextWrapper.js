@@ -3,6 +3,7 @@ import GlobalContext from "./GlobalContext";
 import dayjs from "dayjs";
 import { getMonth, getYear } from "../utils/calendar";
 import { colours } from "./../utils/calendar.js";
+import { v4 as uuidv4 } from "uuid";
 
 function savedEventsReducer(state, { type, payload }) {
   switch (type) {
@@ -25,28 +26,38 @@ function initEvents() {
 
 export default function ContextWrapper(props) {
   const [expand, setExpand] = useState(false); //used
-  const [today, setToday] = useState(dayjs()); //not used
   const [view, setView] = useState(false); //used
-  const [selectedColourIndex, setColourIndex] = useState(0); //not used
-  const [daySelected, setDaySelected] = useState(dayjs()); //not used
-  const [monthIndex, setMonthIndex] = useState(dayjs().month()); //used
-  const [yearIndex, setYearIndex] = useState(dayjs().year()); //used
-  const [currentMonth, setCurrentMonth] = useState(getMonth()); //used
+  const [daySelected, setDaySelected] = useState(dayjs()); // used in labels,
+  const [monthIndex, setMonthIndex] = useState(dayjs().month()); // used
+  const [yearIndex, setYearIndex] = useState(dayjs().year()); // used
+  const [currentMonth, setCurrentMonth] = useState(getMonth()); // used
   const [currentYear, setCurrentYear] = useState(getYear()); //used
-  const [colorLabel, setColorLabel] = useState(0);
-  const [title, setTitle] = useState("");
-  const [selectColor, setSelectedColor] = useState(colours[0]);
-  const [counter, setCounter] = useState(0)
-  // const [colorValue, setColorValue] = useState(colours[0]);
-  // const [labels, setLabels] = useState([
-  //   { dropdown: selectColor, service: "" },
-  // ]);
-  const [labels, setLabels] = useState([{ service: "" }]);
+  const [selectColor, setSelectedColor] = useState(colours[0]);//used in labels,not needed once changes are made
   const [savedEvents, dispatchCalEvent] = useReducer(
     savedEventsReducer,
     [],
     initEvents
   );
+  const [colorObject, setColorObject] = useState([
+    {
+      id: uuidv4(),
+      colorCode: "",
+      colorName: "",
+    },
+  ]);
+  const [statObject, setStatObject] = useState({
+    aug: {
+      id: uuidv4(),
+      date: "",
+      colorCode: "",
+      colorName: "" //new
+    },
+    // August092023: {
+    //   id: uuidv4(),
+    //   date: "2023-08-18",
+    //   colorCode: "#D6454A",
+    // },
+  });
 
   //anytime savedHbits changes, it saves directly into localstorage
   useEffect(() => {
@@ -67,27 +78,18 @@ export default function ContextWrapper(props) {
         setCurrentYear,
         expand,
         setExpand,
-        today,
-        setToday,
         view,
         setView,
-        selectedColourIndex,
-        setColourIndex,
         daySelected,
         setDaySelected,
-        colorLabel,
-        setColorLabel,
-        title,
-        setTitle,
-        labels,
-        setLabels,
-        selectColor,
-        setSelectedColor,
+        selectColor, //delete soon
+        setSelectedColor, //delete soon
         dispatchCalEvent,
-        // colorValue,
-        // setColorValue,
-        counter,
-        setCounter,
+        //color dict
+        colorObject,
+        setColorObject,
+        statObject,
+        setStatObject,
       }}
     >
       {props.children}

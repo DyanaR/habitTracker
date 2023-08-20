@@ -1,20 +1,13 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Dropdown from "./Dropdown";
-import Stats from "../Stats";
-import GlobalContext from "../../context/GlobalContext";
-import Labels from "../Labels";
-import Events from "../Events";
+import Stats from "./Stats";
+import Labels from "./Labels";
 
 const Sidebar = () => {
-  // const [colorLabel, setColorLabel] = useState(1);
-  const { colorLabel } = useContext(GlobalContext);
-  // const [title, setTitle] = useState("");
-
   return (
     <Container>
       <aside className="sidebar">
-        <Events />
+        <Labels />
         <Stats />
       </aside>
     </Container>

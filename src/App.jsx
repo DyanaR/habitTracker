@@ -1,12 +1,11 @@
-import { useState, Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/fullSidebar/Sidebar";
+import Sidebar from "./components/Sidebar";
 import Month from "./components/Month";
 import styled from "styled-components";
 import CalendarHeader from "./components/CalendarHeader";
 import Year from "./components/Year";
 import GlobalContext from "./context/GlobalContext";
-import dayjs from "dayjs";
 import { getMonth, getYear } from "./utils/calendar.js";
 
 function App() {
