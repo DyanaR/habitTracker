@@ -12,10 +12,9 @@ export default function Year({ monthCount }) {
               <div className="month-title">{monthNames.format("MMMM")}</div>
               <div className="month">
                 {month.map((row, i) => (
-                  <Fragment key={i}>
+                  <Fragment key={i}>                
                     {row.map((day, idx) => (
-                      <Day day={day} key={idx} />
-                      //add rowIdx-{i} later in Day tag
+                      <Day day={day} key={idx} rowIdx={i} />
                     ))}
                   </Fragment>
                 ))}
@@ -34,8 +33,10 @@ const Container = styled.div`
     grid-template-columns: repeat(4, 0fr);
     justify-content: center;
     text-align: center;
+    padding: 5rem, 0;
   }
-  .month-title {
+  .month-title{
+    padding-top: 1rem;
   }
   .month {
     padding: 1rem;
@@ -43,8 +44,14 @@ const Container = styled.div`
     grid-template-columns: repeat(7, 0fr);
     justify-content: center;
   }
+  .weekdays{
+    padding: .2rem;
+  }
   .day-container {
-    width: 2rem;
-    height: 2rem;
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  .weekday{
+    height: .5rem;
   }
 `;

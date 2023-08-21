@@ -19,7 +19,7 @@ const Stats = () => {
   return (
     <Container>
       <div className="stats">
-        <h2>Statistics</h2>
+        <h2>Stats</h2>
         <div className="info">
           {colorObject?.map((iterator, index) => (
             <div className="stats-info" key={index}>
@@ -36,13 +36,17 @@ const Stats = () => {
 export default Stats;
 
 const Container = styled.div`
+  .stats{
+    padding-top: 2rem;
+    padding-bottom: 10rem;
+  }
   .info {
     display: grid;
-    grid-template-columns: repeat(4, 0fr);
+    grid-template-columns: repeat(3, 0fr);
     gap: 1.5rem;
   }
   h2 {
-    padding-top: 5rem;
+    ${'' /* padding-top: 5rem; */}
     padding-bottom: 1rem;
   }
 `;

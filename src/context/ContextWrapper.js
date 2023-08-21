@@ -26,13 +26,12 @@ function initEvents() {
 
 export default function ContextWrapper(props) {
   const [expand, setExpand] = useState(false); //used
-  const [view, setView] = useState(false); //used
+  const [view, setView] = useState(true); //used
   const [daySelected, setDaySelected] = useState(dayjs()); // used in labels,
   const [monthIndex, setMonthIndex] = useState(dayjs().month()); // used
   const [yearIndex, setYearIndex] = useState(dayjs().year()); // used
   const [currentMonth, setCurrentMonth] = useState(getMonth()); // used
   const [currentYear, setCurrentYear] = useState(getYear()); //used
-  const [selectColor, setSelectedColor] = useState(colours[0]);//used in labels,not needed once changes are made
   const [savedEvents, dispatchCalEvent] = useReducer(
     savedEventsReducer,
     [],
@@ -82,8 +81,6 @@ export default function ContextWrapper(props) {
         setView,
         daySelected,
         setDaySelected,
-        selectColor, //delete soon
-        setSelectedColor, //delete soon
         dispatchCalEvent,
         //color dict
         colorObject,

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import GlobalContext from "../context/GlobalContext";
 import { BsTrash } from "react-icons/bs";
+import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
 import Dropdown from "./Dropdown";
 import { v4 as uuidv4 } from "uuid";
+import { NotificationManager } from "react-notifications";
 
 export default function Labels() {
   const {
@@ -15,6 +17,7 @@ export default function Labels() {
     labels,
     colorObject,
     setColorObject,
+    statObject
   } = useContext(GlobalContext);
 
   const [title, setTitle] = useState("");
@@ -27,28 +30,12 @@ export default function Labels() {
     });
     setColorObject(modifiedArray);
   };
-//to save in local storage
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const calendarEvent = {
-  //     title,
-  //     colorTitler: { labels, selectColor },
-  //     label: selectColor,
-  //     day: daySelected.valueOf(),
-  //     // id: selectedEvent ? selectedEvent.id : Date.now(),
-  //   };
-  //   // to delete color labels
-  //   const calendarTitle = {
-  //     colorTitle: labels,
-  //   };
-  //   // if (selectedEvent) {
-  //   //   dispatchCalEvent({ type: "update", payload: calendarEvent });
-  //   // } else {
-  //   //   dispatchCalEvent({ type: "push", payload: calendarEvent });
-  //   // }
-  // }
 
   const handleLabelAdd = () => {
+    if (colorObject.length === 6) {
+      NotificationManager.error("Label limit has been reached.", "Failure");
+      return;
+    }
     setColorObject((prevState) => [
       ...prevState,
       {
@@ -68,9 +55,30 @@ export default function Labels() {
     setColorObject(filteredColorArray);
   };
 
+    //to save in local storage
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const calendarEvent = {
+  //     title,
+  //     label: colorObject,
+  //     stat: statObject,
+  //     // id: selectedEvent ? selectedEvent.id : Date.now(),
+  //   };
+  //   dispatchCalEvent({ type: "push", payload: calendarEvent });
+    // to delete color labels
+    // const calendarTitle = {
+    //   colorTitle: labels,
+    // };
+    // if (selectedEvent) {
+    //   dispatchCalEvent({ type: "update", payload: calendarEvent });
+    // } else {
+    //   dispatchCalEvent({ type: "push", payload: calendarEvent });
+    // }
+  // }
+  
   return (
     <Container>
-      <div className="habits">
+      <div className="habits-container">
         <button onClick={() => handleLabelAdd()}>
           <AiOutlinePlus />
           Add Color
@@ -79,37 +87,36 @@ export default function Labels() {
           <input
             type="text"
             name="title"
-            placeholder="Add title"
+            placeholder="Habit Title"
             value={title}
             required
             onChange={(e) => setTitle(e.target.value)}
           />
-          <p>{daySelected.format("dddd, MMMM DD")}</p>
-          <div>
+          <div className="habit-info">
             {colorObject.map((color, index) => (
               <div key={index} className="labels">
-                <div className="colors">
+                <div className="color-selection">
                   <Dropdown color={color} />
                 </div>
                 <input
                   type="text"
                   name="color-title"
-                  placeholder="color title"
+                  placeholder="Color Title"
                   value={color.colorName}
                   required
                   onChange={(e) => handleLabelChange(e, color)}
                 />
-                <div className="remove">
-                  <button
+                {colorObject.length !== 1 && (
+                  <div
+                    className="remove"
                     type="button"
                     onClick={() => handleLabelRemove(color)}
-                    className="remove-btn"
                   >
                     <span>
-                      <BsTrash />
+                      <TiDelete style={{ cursor: "pointer" }} />
                     </span>
-                  </button>
-                </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -125,18 +132,19 @@ export default function Labels() {
 }
 
 const Container = styled.div`
-  .habits-form {
+  .color-selection {
+    display: flex;
+    align-items: center;
   }
-  .colors {
-    padding: .5rem  0;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
-    display: grid;
-    grid-template-columns: repeat(5, 0fr);
+  .remove {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
   }
   .labels {
     display: flex;
-    padding: 0.5rem 0;
+    padding: 0.2rem, 0.5rem;
+    gap: 0.5rem;
   }
   input {
     margin: 0.5rem 0;

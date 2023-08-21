@@ -21,7 +21,6 @@ export default function Day({ day, rowIdx }) {
 
   function handleColorUpdate(originalDate, dateValue) {
     let colorValue = colorObject[0] || null;
-    console.log(colorValue)
     const hasColor = statObject[dateValue] || null;
 
     if (hasColor) {
@@ -82,7 +81,7 @@ export default function Day({ day, rowIdx }) {
       >
         <header>
           {rowIdx === 0 && (
-            <p className="weekday text-sm mt-1">
+            <p className="weekday">
               {day.format("ddd").toUpperCase()}
             </p>
           )}
@@ -108,6 +107,7 @@ const Container = styled.div`
   .weekday {
     font-size: 0.9rem;
     margin-top: 0.25rem;
+    color: var(--color-text-variant)
   }
   .date {
     font-size: 0.9rem;
@@ -119,8 +119,6 @@ const Container = styled.div`
   .today {
     background-color: lightblue;
     border-radius: 9999px;
-  }
-  .today:hover {
-    background-color: #cc0000;
+    font-weight: bold;
   }
 `;

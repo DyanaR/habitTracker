@@ -2,12 +2,11 @@ import dayjs from "dayjs";
 
 export const colours = [
   "",
-  // "#F3F4F6",
   "#D9454A",
   "#A0C2DD",
   "#CFC1D7",
   "#ECC7A1",
-  "#F1E9BB",
+  // "#F1E9BB",
   "#EEA3A1",
   "#738A6E",
 ];

@@ -8,7 +8,7 @@ import { colours } from "../utils/calendar.js";
 const Dropdown = (props) => {
   const { color } = props;
   const [expand, setExpand] = useState(false);
-  const { setColorObject, colorObject } = useContext(GlobalContext);
+  const { setColorObject, colorObject, statObject } = useContext(GlobalContext);
 
   const handleColorChange = (newColor) => {
     const hasColor = colorObject.some(
@@ -26,6 +26,8 @@ const Dropdown = (props) => {
     setColorObject(modifiedArray);
 
   };
+
+    console.log(statObject, colorObject)
 
   let menuRef = useRef();
 
@@ -47,7 +49,7 @@ const Dropdown = (props) => {
     <Container>
       <div className="menu">
         <div className="dropdown" ref={menuRef}>
-          <button
+          <button className="dropdown"
             type="button"
             onClick={() => {
               setExpand(!expand);
@@ -57,6 +59,7 @@ const Dropdown = (props) => {
               height: "20px",
               width: "20px",
               borderRadius: "2px",
+              cursor: "pointer"
             }}
           ></button>
           <div
@@ -81,6 +84,7 @@ const Dropdown = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                     color: "white",
+                    cursor: "pointer",
                   }}
                 >
                   {/* {colorObject.colorCode === color && <BsCheck />} */}
@@ -100,11 +104,19 @@ const Container = styled.div`
   .menu {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    ${'' /* gap: 1rem; */}
   }
-  .dropdown {
+
+  ${'' /* .dropdown {
     padding: 0.5rem 0;
     position: relative;
+  } */}
+  .colors {
+    padding: .5rem  0;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(5, 0fr);
   }
   button {
     border: none;
@@ -114,8 +126,8 @@ const Container = styled.div`
   .dropdown-menu {
     position: absolute;
     display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
+    ${'' /* gap: 1rem; */}
+    padding: 0.2rem .7rem;
     background-color: var(--color-white);
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;

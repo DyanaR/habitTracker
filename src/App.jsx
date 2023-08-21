@@ -36,7 +36,7 @@ function App() {
           <div className="sidebar">
             <Sidebar />
           </div>
-          <div className="month">
+          <div className="cal-view">
             {view ? (
               <Month month={currentMonth} />
             ) : (
@@ -53,10 +53,13 @@ export default App;
 
 const Container = styled.div`
   .cal {
+    position: relative;
+    height: 100%;
+${'' /* overflow: hidden; */}
   }
-  .month {
+  .cal-view {
+    ${'' /* display: flex; */}
+    padding-left: 18rem;
   }
-  .sidebar {
-    float: left;
-  }
+ 
 `;

@@ -21,20 +21,20 @@ const Container = styled.div`
     padding: 1rem 2rem;
     background-color: var(--color-white);
     border-right: 1.3px solid var(--color-shadow);
+    position: absolute;
+    float: left;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
   }
   .title {
     margin-bottom: 1rem;
   }
   input[type="text"] {
-    ${"" /* width: 100%; */}
     padding-left: 1rem;
     border: none;
     height: 2rem;
     border-radius: 5px;
     background-color: var(--color-bg);
-  }
-  .stats__container {
-    padding-top: 3rem;
-    padding-bottom: 30rem;
   }
 `;
