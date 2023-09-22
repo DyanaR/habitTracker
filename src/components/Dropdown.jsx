@@ -106,11 +106,6 @@ const Container = styled.div`
     align-items: center;
     ${'' /* gap: 1rem; */}
   }
-
-  ${'' /* .dropdown {
-    padding: 0.5rem 0;
-    position: relative;
-  } */}
   .colors {
     padding: .5rem  0;
     gap: 0.5rem;

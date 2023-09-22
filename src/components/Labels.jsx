@@ -149,6 +149,13 @@ const Container = styled.div`
   input {
     margin: 0.5rem 0;
   }
+  input[type="text"] {
+    padding-left: 1rem;
+    border: none;
+    height: 2rem;
+    border-radius: 5px;
+    background-color: var(--color-bg);
+  }
   button {
     justify-content: center;
     background-color: var(--color-white);

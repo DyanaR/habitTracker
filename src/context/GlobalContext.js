@@ -32,6 +32,8 @@ const GlobalContext = React.createContext({
   value: "",
   setValue: () => {},
   dispatchCalEvent: ({type, payload}) => {},
+  active: false,
+  setActive: () => {},
 });
 
 export default GlobalContext;

@@ -7,6 +7,7 @@ import CalendarHeader from "./components/CalendarHeader";
 import Year from "./components/Year";
 import GlobalContext from "./context/GlobalContext";
 import { getMonth, getYear } from "./utils/calendar.js";
+import AddLabels from "./components/AddLabels";
 
 function App() {
   const {
@@ -17,6 +18,8 @@ function App() {
     setCurrentYear,
     setCurrentMonth,
     yearIndex,
+    active,
+    setActive
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -26,6 +29,10 @@ function App() {
   useEffect(() => {
     setCurrentYear(getYear(yearIndex));
   }, [yearIndex]);
+
+  const showMenu = () => {
+    setActive(!active);
+  };
 
   return (
     <Container>
@@ -44,6 +51,7 @@ function App() {
             )}
           </div>
         </div>
+        <AddLabels />
       </Fragment>
     </Container>
   );
@@ -61,5 +69,12 @@ ${'' /* overflow: hidden; */}
     ${'' /* display: flex; */}
     padding-left: 18rem;
   }
- 
+  @media screen and (max-width: 800px){
+    .sidebar{
+      display: none;
+    }
+    .cal-view{
+      padding: 0;
+    }
+  }
 `;

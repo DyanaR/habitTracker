@@ -23,8 +23,8 @@ const Stats = () => {
         <div className="info">
           {colorObject?.map((iterator, index) => (
             <div className="stats-info" key={index}>
-              <h1>{countByColorCode(iterator?.colorCode)}</h1>
-              {<h6>{iterator?.colorName || ""}</h6>}
+              <h1 className="count">{countByColorCode(iterator?.colorCode)}</h1>
+              {<h5>{iterator?.colorName || ""}</h5>}
             </div>
           ))}
         </div>
@@ -48,5 +48,8 @@ const Container = styled.div`
   h2 {
     ${'' /* padding-top: 5rem; */}
     padding-bottom: 1rem;
+  }
+  .count{
+    color: var(--color-primary)
   }
 `;

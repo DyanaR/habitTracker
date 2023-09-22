@@ -18,9 +18,10 @@ export default Sidebar;
 
 const Container = styled.div`
   .sidebar {
-    padding: 1rem 2rem;
+    padding: 0 2rem;
+    padding-top: 2.5rem;
     background-color: var(--color-white);
-    border-right: 1.3px solid var(--color-shadow);
+    border-right: 1.3px solid var(--color-bg);
     position: absolute;
     float: left;
     top: 0px;
@@ -30,11 +31,11 @@ const Container = styled.div`
   .title {
     margin-bottom: 1rem;
   }
-  input[type="text"] {
+  ${'' /* input[type="text"] {
     padding-left: 1rem;
     border: none;
     height: 2rem;
     border-radius: 5px;
     background-color: var(--color-bg);
-  }
+  } */}
 `;

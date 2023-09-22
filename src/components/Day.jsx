@@ -117,8 +117,11 @@ const Container = styled.div`
     text-align: center;
   }
   .today {
-    background-color: lightblue;
+    background-color: var(--color-primary);
+    color: white;
     border-radius: 9999px;
     font-weight: bold;
   }
+
+
 `;

@@ -23,8 +23,8 @@ const CalendarHeader = () => {
   return (
     <Container>
       <div className="heading">
-        <div className="toggles">
-          <button
+        <div className="right-side">
+          <button 
             onClick={() => {
               setMonthIndex(dayjs().month());
               setYearIndex(dayjs().year());
@@ -33,6 +33,7 @@ const CalendarHeader = () => {
             Today
           </button>
           <GrFormPrevious
+            className="toggles"
             onClick={() => {
               {
                 view
@@ -43,6 +44,7 @@ const CalendarHeader = () => {
           />
 
           <GrFormNext
+          className="toggles"
             onClick={() => {
               {
                 view
@@ -51,7 +53,16 @@ const CalendarHeader = () => {
               }
             }}
           />
-          <h3>{view ? monthTitle + " " + yearTitle : yearTitle}</h3>
+          {view ? 
+          <h3 className='month-title'>
+          {monthTitle + " " + yearTitle}
+          </h3>
+          :
+          <h3 className="year-title">
+            {yearTitle}
+          </h3>
+          }
+          {/* <h3 className="date-title">{view ? monthTitle + " " + yearTitle : yearTitle}</h3> */}
         </div>
 
         <div class="dropdown">
@@ -102,21 +113,25 @@ export default CalendarHeader;
 
 const Container = styled.div`
   .heading {
-    background-color: var(--color-white);
+    background-color: var(--color-bg);
     display: flex;
     justify-content: space-between;
     ${"" /* width: 100%; */}
     padding: .5rem 2rem;
     ${"" /* align-items: center; */}
-    gap: 2rem;
+    gap: 1rem;
     ${"" /* max-width: none;  */}
   }
-  .toggles {
+  .right-side {
     display: flex;
     ${"" /* justify-content: right; */}
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.rem;
     gap: 1rem;
+  }
+  .toggles{
+    cursor: pointer; 
+    font-size: 1.8rem;
   }
   .dropdown-btn {
     display: flex;
@@ -157,4 +172,26 @@ const Container = styled.div`
   ul {
     list-style-type: none;
   }
+  @media screen and (max-width: 580px){
+    .month-title{
+      font-size: .9rem;
+  }
+  }
+  @media screen and (max-width: 410px){
+    .month-title{
+      font-size: .8rem;
+  }
+  .toggles{
+    font-size: 1.2rem;
+  }
+  .right-side{
+    gap: .3rem;
+  }
+  .button{
+    padding: 0.2rem 0.4rem;
+  }
+  }
+  
+  
+ 
 `;

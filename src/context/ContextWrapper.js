@@ -32,6 +32,7 @@ export default function ContextWrapper(props) {
   const [yearIndex, setYearIndex] = useState(dayjs().year()); // used
   const [currentMonth, setCurrentMonth] = useState(getMonth()); // used
   const [currentYear, setCurrentYear] = useState(getYear()); //used
+  const [active, setActive] = useState(false);
   const [savedEvents, dispatchCalEvent] = useReducer(
     savedEventsReducer,
     [],
@@ -70,7 +71,7 @@ export default function ContextWrapper(props) {
         setMonthIndex,
         yearIndex,
         setYearIndex,
-        currentYear,
+        // currentYear,
         currentMonth,
         setCurrentMonth,
         currentYear,
@@ -87,6 +88,8 @@ export default function ContextWrapper(props) {
         setColorObject,
         statObject,
         setStatObject,
+        active,
+        setActive,
       }}
     >
       {props.children}
