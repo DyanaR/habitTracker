@@ -20,15 +20,14 @@ const Navbar = () => {
         <div className="logo">
           <h1>Habit Tracker</h1>
         </div>
-     
         <div className={active ? "slider active" : "slider"}>
           <div className="closed">
             <AiOutlineClose className="close" onClick={showMenu} />
           </div>
-            <div className="login">
-           <h3>Log in</h3>
+          <div className="login">
+            <h3>Log in</h3>
             <h3>Sign Up</h3>
-        </div>
+          </div>
         </div>
         <div className="menu-icon">
           <GiHamburgerMenu className="menu" onClick={showMenu} />
@@ -61,21 +60,31 @@ const Container = styled.div`
   } */
   }
 
-  ${'' /* .slider .stats{
+  ${
+    "" /* .slider .stats{
     display: none;
     padding: 0;
-  } */}
-   .menu-icon .menu{
+  } */
+  }
+  .login{
+    display: flex;
+    gap: 1rem;
+  }
+  .menu-icon{
+    display: none;
+    align-items: left;
+}
+   .menu-icon .menu {
     display: none;
     font-size: 2rem;
     cursor: pointer;
-}
- .closed .close {
+  }
+  .closed .close {
     display: none;
     cursor: pointer;
     font-size: 2rem;
-}
-  .navbar .icons{
+  }
+  .navbar .icons {
     font-size: 1.5rem;
   }
   ${
@@ -84,62 +93,60 @@ const Container = styled.div`
   } */
   }
 
-  @media screen and (max-width: 800px){
-  .slider{
-    ${'' /* display:flex; */}
+  @media screen and (max-width: 800px) {
+    .slider {
+      ${"" /* display:flex; */}
       padding: 2.8rem 0;
-        position: fixed;
-        min-width: 78%;
-        height: 100vh;
-        background-color: var(--color-secondary);
-        top: 0;
-        right: -100%;
-        z-index: 3;
-        transition: 1s ease;
-  }
-  .slider.active{
-        height: 100vh;
-        min-height: 100%;
-        top: 0;
-        right: 0;
-        transition: 1s ease;
-        :root{
-          -webkit-filter: blur(1px);
-        }
+      position: fixed;
+      min-width: 78%;
+      height: 100vh;
+      background-color: var(--color-secondary);
+      top: 0;
+      right: -100%;
+      z-index: 3;
+      transition: 1s ease;
+    }
+    .slider.active {
+      height: 100vh;
+      min-height: 100%;
+      top: 0;
+      right: 0;
+      transition: 1s ease;
+      :root {
+        -webkit-filter: blur(1px);
+      }
     }
 
-  .slider .login{
-        display: flex;
-        flex-direction: column;
-        padding: 2rem 0;
-        align-items: center;
-        gap: 1rem;
-  }
+    .slider .login {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 0;
+      align-items: center;
+      gap: 1rem;
+    }
 
-  .menu-icon .menu{
-    display: block;
-  }
-  .menu-icon{
+    .menu-icon .menu {
+      display: block;
+    }
+    .menu-icon {
       display: block;
       align-items: right;
-  }
-  .menu-icon .menu{
-    bottom: 1rem;
+    }
+    .menu-icon .menu {
+      bottom: 1rem;
       display: block;
       font-size: 2rem;
       cursor: pointer;
-  }
-  .closed{
+    }
+    .closed {
       display: flex;
-   padding-right: 2rem; 
+      padding-right: 2rem;
       justify-content: end;
-      
-  }
-  .closed .close {
+    }
+    .closed .close {
       display: block;
       cursor: pointer;
       font-size: 2rem;
+    }
   }
-  }
- 
 `;
