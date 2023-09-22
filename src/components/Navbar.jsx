@@ -20,15 +20,15 @@ const Navbar = () => {
         <div className="logo">
           <h1>Habit Tracker</h1>
         </div>
-        {/* <div className="navbar-right">
-          <h3>Log in</h3>
-          <h3>Sign Up</h3>
-        </div> */}
+     
         <div className={active ? "slider active" : "slider"}>
           <div className="closed">
             <AiOutlineClose className="close" onClick={showMenu} />
           </div>
-          <Stats />
+            <div className="login">
+           <h3>Log in</h3>
+            <h3>Sign Up</h3>
+        </div>
         </div>
         <div className="menu-icon">
           <GiHamburgerMenu className="menu" onClick={showMenu} />
@@ -61,10 +61,10 @@ const Container = styled.div`
   } */
   }
 
-  .slider .stats{
+  ${'' /* .slider .stats{
     display: none;
     padding: 0;
-  }
+  } */}
    .menu-icon .menu{
     display: none;
     font-size: 2rem;
@@ -108,21 +108,12 @@ const Container = styled.div`
         }
     }
 
-  .slider .stats{
-    ${"" /* padding-top: 4rem; */}
+  .slider .login{
         display: flex;
         flex-direction: column;
-        padding: 2rem 0; 
+        padding: 2rem 0;
         align-items: center;
-
-  }
-
-  .slider .stats .info{
-    ${'' /* display: flex;
-    flex-direction: column; */}
-    ${'' /* justify-content: center; */}
-    align-items: center;
-    gap: 2rem;
+        gap: 1rem;
   }
 
   .menu-icon .menu{
@@ -148,6 +139,7 @@ const Container = styled.div`
       display: block;
       cursor: pointer;
       font-size: 2rem;
+  }
   }
  
 `;
