@@ -50,6 +50,7 @@ const Signup = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
 .signup-container{
     margin: 2rem;
@@ -95,4 +96,5 @@ const Container = styled.div`
     background-color: #54a4ab;
   }
 `;
+
 export default Signup;
