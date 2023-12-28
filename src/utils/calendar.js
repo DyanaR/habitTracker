@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 export const colours = [
-  "",
+  //"",
   "#D9454A",
   "#A0C2DD",
   "#CFC1D7",

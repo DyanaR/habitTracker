@@ -1,80 +1,39 @@
-import { Fragment, useContext, useEffect } from "react";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Month from "./components/Month";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import HabitTracker from "./pages/HabitTracker";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Account from "./pages/Account";
 import styled from "styled-components";
-import CalendarHeader from "./components/CalendarHeader";
-import Year from "./components/Year";
-import GlobalContext from "./context/GlobalContext";
-import { getMonth, getYear } from "./utils/calendar.js";
-import AddLabels from "./components/AddLabels";
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 function App() {
-  const {
-    monthIndex,
-    view,
-    currentMonth,
-    currentYear,
-    setCurrentYear,
-    setCurrentMonth,
-    yearIndex,
-    active,
-    setActive
-  } = useContext(GlobalContext);
-
-  useEffect(() => {
-    setCurrentMonth(getMonth(monthIndex));
-  }, [monthIndex]);
-
-  useEffect(() => {
-    setCurrentYear(getYear(yearIndex));
-  }, [yearIndex]);
-
-  const showMenu = () => {
-    setActive(!active);
-  };
-
   return (
     <Container>
-      <Fragment>
-        <Navbar />
-        <CalendarHeader />
-        <div className="cal">
-          <div className="sidebar">
-            <Sidebar />
-          </div>
-          <div className="cal-view">
-            {view ? (
-              <Month month={currentMonth} />
-            ) : (
-              <Year monthCount={currentYear} />
-            )}
-          </div>
-        </div>
-        <AddLabels />
-      </Fragment>
-    </Container>
+    <AuthContextProvider>
+      <Routes>
+        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<ProtectedRoutes><HabitTracker /></ProtectedRoutes>} />
+        <Route
+          path="/Account"
+          element={
+            <ProtectedRoutes>
+              <Account />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signup" element={<Signup />} />
+      </Routes>
+    </AuthContextProvider>
+    </Container> 
   );
 }
 
 export default App;
 
-const Container = styled.div`
-  .cal {
-    position: relative;
-    height: 100%;
-${'' /* overflow: hidden; */}
-  }
-  .cal-view {
-    ${'' /* display: flex; */}
-    padding-left: 18rem;
-  }
-  @media screen and (max-width: 800px){
-    .sidebar{
-      display: none;
-    }
-    .cal-view{
-      padding: 0;
-    }
-  }
-`;
+const Container = styled.div``;
+
+

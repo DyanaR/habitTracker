@@ -11,17 +11,27 @@ export default function Day({ day, rowIdx }) {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") ? "today" : "";
   }
 
+  // add a default white color to the calendar ui 
+  const colorObjectWithWhite = [
+    {
+      colorCode: "", // White color (empty string)
+      colorName: "White", // Optional: Name for the white color
+    },
+    ...colorObject, // Add the existing colors after the default white color
+  ];
+
   function extractColorIndex(colorCode) {
-    let totalLength = colorObject.length;
-    const currentIndex = colorObject.findIndex(
+    let totalLength = colorObjectWithWhite.length;
+    const currentIndex = colorObjectWithWhite.findIndex(
       (iterator) => iterator.colorCode === colorCode
     );
     return { currentIndex, totalLength };
   }
 
   function handleColorUpdate(originalDate, dateValue) {
-    let colorValue = colorObject[0] || null;
+    let colorValue = colorObjectWithWhite[0] || null;
     const hasColor = statObject[dateValue] || null;
+    
 
     if (hasColor) {
       const { currentIndex, totalLength } = extractColorIndex(
@@ -34,7 +44,7 @@ export default function Day({ day, rowIdx }) {
       } else {
         newIndex = currentIndex + 1;
       }
-      colorValue = colorObject[newIndex] || null;
+      colorValue = colorObjectWithWhite[newIndex] || null;
     }
 
     if (colorValue) {
@@ -62,7 +72,7 @@ export default function Day({ day, rowIdx }) {
     const dateValue = day.format("MMMM-DD-YYYY").replaceAll("-", "");
     const hasColor = statObject[dateValue] || null;
     if (hasColor) return hasColor?.colorCode;
-    return "";
+    return hasColor ? hasColor.colorCode : "";
   }
 
   // console.log(statObject, colorObject)

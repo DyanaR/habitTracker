@@ -8,12 +8,15 @@ import { colours } from "../utils/calendar.js";
 const Dropdown = (props) => {
   const { color } = props;
   const [expand, setExpand] = useState(false);
-  const { setColorObject, colorObject, statObject } = useContext(GlobalContext);
+  const { setColorObject, colorObject, statObject, setStatObject } =
+    useContext(GlobalContext);
+
+  const [previousColor, setPreviousColor] = useState(color.colorCode);
+  const filteredColours = colours.filter((color) => color !== "");
 
   const handleColorChange = (newColor) => {
     const hasColor = colorObject.some(
-      (iterator) => iterator.colorCode === newColor 
-      && iterator.colorCode !== ""
+      (iterator) => iterator.colorCode === newColor && iterator.colorCode !== ""
     );
     if (hasColor) {
       NotificationManager.error("This color is already in use", "Failure");
@@ -25,9 +28,27 @@ const Dropdown = (props) => {
     });
     setColorObject(modifiedArray);
 
+    const updatedStatObject = { ...statObject };
+    const keys = Object.keys(updatedStatObject);
+
+    if (keys.length > 1) {
+      for (let i = 1; i < keys.length; i++) {
+        const key = keys[i];
+        if (
+          updatedStatObject[key].colorCode === previousColor &&
+          previousColor !== ""
+        ) {
+          updatedStatObject[key].colorCode = newColor;
+        }
+      }
+    }
+
+    setStatObject(updatedStatObject);
+
+    setPreviousColor(newColor);
   };
 
-    console.log(statObject, colorObject)
+  console.log(statObject, colorObject);
 
   let menuRef = useRef();
 
@@ -49,7 +70,8 @@ const Dropdown = (props) => {
     <Container>
       <div className="menu">
         <div className="dropdown" ref={menuRef}>
-          <button className="dropdown"
+          <button
+            className="dropdown"
             type="button"
             onClick={() => {
               setExpand(!expand);
@@ -59,7 +81,7 @@ const Dropdown = (props) => {
               height: "20px",
               width: "20px",
               borderRadius: "2px",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           ></button>
           <div
@@ -69,7 +91,7 @@ const Dropdown = (props) => {
             className={"dropdown-menu " + (expand ? "active" : "inactive")}
           >
             <div className="colors">
-              {colours.map((color, i) => (
+              {filteredColours.map((color, i) => (
                 <span
                   key={i}
                   onClick={() => {
@@ -104,10 +126,10 @@ const Container = styled.div`
   .menu {
     display: flex;
     align-items: center;
-    ${'' /* gap: 1rem; */}
+    ${"" /* gap: 1rem; */}
   }
   .colors {
-    padding: .5rem  0;
+    padding: 0.5rem 0;
     gap: 0.5rem;
     padding: 0.5rem 0;
     display: grid;
@@ -121,7 +143,7 @@ const Container = styled.div`
   .dropdown-menu {
     position: absolute;
     display: flex;
-    ${'' /* gap: 1rem; */}
+    ${"" /* gap: 1rem; */}
     padding: 0.2rem .7rem;
     background-color: var(--color-white);
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);

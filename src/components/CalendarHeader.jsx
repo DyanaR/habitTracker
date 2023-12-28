@@ -17,8 +17,9 @@ const CalendarHeader = () => {
     setView,
   } = useContext(GlobalContext);
 
-  const yearTitle = dayjs(new Date(yearIndex, dayjs().month())).format("YYYY");
-  const monthTitle = dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM");
+  const yearTitle = dayjs(new Date(yearIndex, monthIndex)).format("YYYY");
+  const monthTitle = dayjs(new Date(yearIndex, monthIndex)).format("MMMM");
+
 
   return (
     <Container>

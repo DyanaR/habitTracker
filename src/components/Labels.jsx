@@ -55,7 +55,7 @@ export default function Labels() {
     setColorObject(filteredColorArray);
   };
 
-    //to save in local storage
+  //to save in local storage
   // function handleSubmit(e) {
   //   e.preventDefault();
   //   const calendarEvent = {
