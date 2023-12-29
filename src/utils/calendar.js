@@ -42,7 +42,7 @@ export function getYear(year = dayjs().year()) {
   return arrayOfMonth;
 }
 
-//   export function getYear(year = dayjs().year()){
+//  export function getYear(year = dayjs().year()){
 // 	const month = dayjs().month();
 // 	const firstMonthOfYear = dayjs().year(year).month(month).startOf("year").month();
 // 	let currentCount = firstMonthOfYear - 1;
