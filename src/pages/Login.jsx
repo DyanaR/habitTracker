@@ -18,7 +18,7 @@ const Login = () => {
     setError('');
     try{
       await signIn(email, password);
-      navigate('/');
+      navigate('/HueTrack');
     } catch (e) {
       setError(e.message);
       console.log(e.message);
