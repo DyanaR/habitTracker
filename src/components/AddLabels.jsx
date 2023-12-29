@@ -59,8 +59,8 @@ const Container = styled.div`
             padding-top: .3rem;
             border-radius: 50px;
             border: .15rem solid var(--color-bg);
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             right: 1.5rem;
             bottom: 1.5rem;
             z-index: 1;

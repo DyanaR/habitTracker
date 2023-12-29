@@ -13,11 +13,11 @@ export default function Day({ day, rowIdx }) {
 
   // add a default white color to the calendar ui 
   const colorObjectWithWhite = [
+    ...colorObject, 
     {
       colorCode: "", // White color (empty string)
-      colorName: "White", // Optional: Name for the white color
+      colorName: "White", 
     },
-    ...colorObject, // Add the existing colors after the default white color
   ];
 
   function extractColorIndex(colorCode) {
