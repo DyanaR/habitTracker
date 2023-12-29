@@ -21,8 +21,8 @@ const Navbar = () => {
       <div className="navbar">
 
         <div className="logo">
-          <Link to="/Home" style={{textDecoration: 'none'}}>
-            <h1 >HueTrack</h1>
+          <Link to="/" style={{textDecoration: 'none'}}>
+            <h1>HueTrack</h1>
           </Link>
         </div>
     

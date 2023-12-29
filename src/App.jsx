@@ -12,28 +12,33 @@ import ProtectedRoutes from "./pages/ProtectedRoutes";
 function App() {
   return (
     <Container>
-    <AuthContextProvider>
-      <Routes>
-        <Route path="/Home" element={<Home />} />
-        <Route path="/" element={<ProtectedRoutes><HabitTracker /></ProtectedRoutes>} />
-        <Route
-          path="/Account"
-          element={
-            <ProtectedRoutes>
-              <Account />
-            </ProtectedRoutes>
-          }
-        />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Signup />} />
-      </Routes>
-    </AuthContextProvider>
-    </Container> 
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/HueTrack"
+            element={
+              <ProtectedRoutes>
+                <HabitTracker />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/Account"
+            element={
+              <ProtectedRoutes>
+                <Account />
+              </ProtectedRoutes>
+            }
+          />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
+        </Routes>
+      </AuthContextProvider>
+    </Container>
   );
 }
 
 export default App;
 
 const Container = styled.div``;
-
-

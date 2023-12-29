@@ -21,7 +21,7 @@ const Home = () => {
             into lasting habits effortlessly.
           </h4>
         </div>
-        <Link to={!user ? "/" : "/Signup" }>
+        <Link to={!user ? "/HueTrack" : "/Signup" }>
           <button>
             <h3>Start HueTrack</h3>
           </button>
