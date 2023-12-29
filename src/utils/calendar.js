@@ -9,6 +9,7 @@ export const colours = [
   // "#F1E9BB",
   "#EEA3A1",
   "#738A6E",
+  "#808080"
 ];
 
 export function getMonth(month = dayjs().month(), year = dayjs().year()) {

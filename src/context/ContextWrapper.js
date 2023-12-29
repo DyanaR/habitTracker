@@ -33,6 +33,7 @@ export default function ContextWrapper(props) {
   const [currentMonth, setCurrentMonth] = useState(getMonth()); // used
   const [currentYear, setCurrentYear] = useState(getYear()); //used
   const [active, setActive] = useState(false);
+  const [title, setTitle] = useState("Alcohol Intake");
   const [savedEvents, dispatchCalEvent] = useReducer(
     savedEventsReducer,
     [],
@@ -41,8 +42,28 @@ export default function ContextWrapper(props) {
   const [colorObject, setColorObject] = useState([
     {
       id: uuidv4(),
-      colorCode: "",
-      colorName: "",
+      colorCode: "#738A6E",
+      colorName: "None",
+    },
+    {
+      id: uuidv4(),
+      colorCode: "#A0C2DD",
+      colorName: "1-3",
+    },
+    {
+      id: uuidv4(),
+      colorCode: "#ECC7A1",
+      colorName: "4-6",
+    },
+    {
+      id: uuidv4(),
+      colorCode: "#D9454A",
+      colorName: "7+",
+    },
+    {
+      id: uuidv4(),
+      colorCode: "#808080",
+      colorName: "Blackout",
     },
   ]);
   const [statObject, setStatObject] = useState({
@@ -90,6 +111,8 @@ export default function ContextWrapper(props) {
         setStatObject,
         active,
         setActive,
+        title,
+        setTitle
       }}
     >
       {props.children}

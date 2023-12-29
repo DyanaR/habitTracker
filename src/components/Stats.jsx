@@ -42,7 +42,7 @@ const Container = styled.div`
   }
   .info {
     display: grid;
-    grid-template-columns: repeat(3, 0fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
   h2 {

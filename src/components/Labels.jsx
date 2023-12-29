@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import GlobalContext from "../context/GlobalContext";
 import { BsTrash } from "react-icons/bs";
 import { TiDelete } from "react-icons/ti";
@@ -17,10 +17,11 @@ export default function Labels() {
     labels,
     colorObject,
     setColorObject,
-    statObject
+    statObject,
+    title,
+    setTitle
   } = useContext(GlobalContext);
 
-  const [title, setTitle] = useState("");
 
   const handleLabelChange = (e, color) => {
     const { value } = e.target;
@@ -55,26 +56,16 @@ export default function Labels() {
     setColorObject(filteredColorArray);
   };
 
-  //to save in local storage
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const calendarEvent = {
-  //     title,
-  //     label: colorObject,
-  //     stat: statObject,
-  //     // id: selectedEvent ? selectedEvent.id : Date.now(),
-  //   };
-  //   dispatchCalEvent({ type: "push", payload: calendarEvent });
-    // to delete color labels
-    // const calendarTitle = {
-    //   colorTitle: labels,
-    // };
-    // if (selectedEvent) {
-    //   dispatchCalEvent({ type: "update", payload: calendarEvent });
-    // } else {
-    //   dispatchCalEvent({ type: "push", payload: calendarEvent });
-    // }
-  // }
+  const handleReset = () => {
+    const resetLabels = colorObject.map((color) => ({
+      ...color,
+      colorName: "", 
+      //colorCode: "",
+    }));
+    setColorObject(resetLabels);
+    setTitle("");
+  };
+
   
   return (
     <Container>
@@ -83,6 +74,7 @@ export default function Labels() {
           <AiOutlinePlus />
           Add Color
         </button>
+        <button onClick={handleReset}>Reset</button>
         <form className="habits-form">
           <input
             type="text"
